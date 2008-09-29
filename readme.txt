@@ -4,7 +4,7 @@ Donate link: http://sugarrae.com/wordpress/cyc/
 Tags: login, register, profile, community
 Requires at least: 2.5
 Tested up to: 2.6.2
-stable tag: 1.1
+stable tag: 1.1.1
 
 Uses your current theme to display login, registration and profile pages instead of the WordPress look and feel.
 
