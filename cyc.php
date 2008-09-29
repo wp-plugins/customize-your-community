@@ -405,11 +405,20 @@ function cyc_footer() {
 
 function cyc_password() {
 	$errors = new WP_Error();
+	if ( $_POST['user_login'] ) {
+		$errors = retrieve_password();
+		if ( !is_wp_error($errors) ) {
+			wp_redirect('wp-login.php?checkemail=confirm');
+			exit();
+		}
+	}
+	
 	if ( 'invalidkey' == $_GET['error'] ) 
 		$errors->add('invalidkey', __('Sorry, that key does not appear to be valid.'));
 
 	$errors->add('registermsg', __('Please enter your username or e-mail address. You will receive a new password via e-mail.'), 'message');
 	do_action('lost_password');
+	do_action('lostpassword_post');
 	cyc_head("Lost Password");
 
 	cyc_show_errors($errors);
@@ -438,7 +447,6 @@ function cyc_show_registerform() {
 	$user_email = '';
    
 	if ( isset($_POST['user_login']) ) {
-		session_start();
 		if( !$cyc_options['captcha'] || ( $cyc_options['captcha'] && ($_SESSION['security_code'] == $_POST['security_code']) && (!empty($_SESSION['security_code']) ) ) 
 			) {
 			unset($_SESSION['security_code']);
