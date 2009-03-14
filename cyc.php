@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Customize Your Community
-Version: 1.1
+Version: 1.2.1
 Plugin URI: http://www.sugarrae.com/wordpress/cyc/
 Description: Uses your current theme to display login, registration and profile pages instead of the WordPress look and feel.
 Author: Joost de Valk
@@ -390,7 +390,11 @@ function cyc_footer() {
 		<?php		
 	} else if (isset($user_ID)){
 		echo '<ul id="cycnav">'."\n";
-		echo '<li><a href="'.site_url('wp-login.php?action=logout', 'logout').'">'.__('Log out').'</a></li>'."\n";		
+		if (function_exists('wp_logout_url')) {
+			echo '<li><a href="'.wp_logout_url().'">'.__('Log out').'</a></li>'."\n";
+		} else {
+			echo '<li><a href="'.site_url('wp-login.php?action=logout', 'logout').'">'.__('Log out').'</a></li>'."\n";			
+		}
 		echo '</ul>'."\n";
 	}
 	echo $cyc_options['beforesidebarcode'];
