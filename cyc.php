@@ -540,6 +540,11 @@ function cyc_show_loginform() {
 	?>
 	<form class="loginform" action="<?php bloginfo('wpurl'); ?>/wp-login.php" method="post" >
 		<p>
+			<?php 
+				if (isset($_GET['redirect_to']) && $_GET['redirect_to'] != '') {
+					echo '<input type="hidden" name="redirect_to" value="'.esc_attr($_GET['redirect_to']).'" />';
+				}
+			?>
 			<label for="user_login"><?php _e('Username:') ?></label>
 			<input name="log" value="<?php echo attribute_escape(stripslashes($_POST['log'])); ?>" class="mid" id="user_login" type="text" />
 			<br/>
